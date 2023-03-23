@@ -40,7 +40,7 @@ int main(int argc, char* argv[]){
 	}else if(strcmp(argv[1], "status") == 0){
 		FILE* fp;
 		char line[80], fullFilename[100];
-		sprintf(fullFilename, GPIO4_PATH "\value");
+		sprintf(fullFilename, GPIO4_PATH "/value");
 		fp = fopen(fullFilename, "rt");
 		while(fgets(line, 80, fp) != NULL){
 			printf("The state of the LED is %s", line);
