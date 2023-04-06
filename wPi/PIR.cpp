@@ -10,7 +10,7 @@ void sensePIR(){
 }
 
 int main(int argc, char *argv[]){
-    wiringPiSetup();
+    wiringPiSetupGpio();
     pinMode(PIN_PIR, INPUT);
 
     wiringPiISR(PIN_PIR, INT_EDGE_RISING, &sensePIR);
