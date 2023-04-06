@@ -16,7 +16,7 @@ void senseTouch(){
 }
 
 int main(int argc, char *argv[]){
-    wiringPiSetup();
+    wiringPiSetupGpio();
     pinMode(PIN_TOUCH, INPUT);
 
     wiringPiISR(PIN_TOUCH, INT_EDGE_RISING, &senseTouch);
