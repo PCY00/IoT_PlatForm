@@ -45,7 +45,7 @@ tk.title('GUI Example')
 label1=Label(tk, text='There is a button next to it.',fg='blue',font=20) # fg is character color, set by font
 label1.pack(side=LEFT, padx=10, pady=10)
 # button1
-button3 = Button(tk,text='클릭해 보세요.',bg='green',font=15,width=30,height=5,command= clicked) #There's a button next to itSpecify functions to operate when clicking the button with #command, color with bg, and height with width and height, respectively, height
+button3 = Button(tk,text='click!.',bg='green',font=15,width=30,height=5,command= clicked) #There's a button next to itSpecify functions to operate when clicking the button with #command, color with bg, and height with width and height, respectively, height
 button3.pack(side=LEFT, padx=10, pady=10)
 # button2
 button4 = Button(tk,text='reset',bg='red',width=30,height=5,font=15,command=reset)
