@@ -19,9 +19,9 @@ data = {
 counter = 0
 
 def clicked():
-    global counter #전역변수 counter
+    global counter #The global variable counter
     counter += 1
-    label1['text'] = '버튼 클릭 수: ' + str(counter)
+    label1['text'] = 'Number of button clicks: ' + str(counter)
     data["m2m:cin"]["con"] = str(counter)
     r = requests.post(url, headers=headers, json=data)
     try:
@@ -29,25 +29,25 @@ def clicked():
     except Exception as exc:
         print('There was a problem %s' %(exc))
 
-# 리셋 함수(카운트 초기화)
+# Reset function (count initialization)
 def reset():
     global counter
     counter = 0
-    label1['text'] = '옆에 버튼이 있습니다.'
+    label1['text'] = 'There is a button next to it.'
 
-## GUI 구성(텍스트,버튼) ##
+## GUI Configuration (Text, Button) ##
 
-# 창 이름 설정
+# Window Name Settings
 tk = Tk()
-tk.title('GUI예제') 
+tk.title('GUI Example') 
 
-# 텍스트
-label1=Label(tk, text='옆에 버튼이 있습니다.',fg='blue',font=20) # fg는 글자 색 지정, font로 글자 설정
+# Text
+label1=Label(tk, text='There is a button next to it.',fg='blue',font=20) # fg is character color, set by font
 label1.pack(side=LEFT, padx=10, pady=10)
-# 버튼1
-button3 = Button(tk,text='클릭해 보세요.',bg='green',font=15,width=30,height=5,command= clicked) #command로 버튼 클릭 시 동작할 함수 지정, bg로 색상지정, width,height로 각각 넓이 높이 지정
+# button1
+button3 = Button(tk,text='클릭해 보세요.',bg='green',font=15,width=30,height=5,command= clicked) #There's a button next to itSpecify functions to operate when clicking the button with #command, color with bg, and height with width and height, respectively, height
 button3.pack(side=LEFT, padx=10, pady=10)
-# 버튼2
+# button2
 button4 = Button(tk,text='reset',bg='red',width=30,height=5,font=15,command=reset)
 button4.pack(side=LEFT,padx=10, pady=10)
 
