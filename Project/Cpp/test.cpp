@@ -319,11 +319,11 @@ public:
 	StatusCode PCD_MIFARE_Transceive(uint8_t *sendData, uint8_t sendLen, bool acceptTimeout = false);
 	// old function used too much memory, now name moved to flash; if you need char, copy from flash to memory
 	//const char *GetStatusCodeName(uint8_t code);
-	static const __FlashStringHelper *GetStatusCodeName(StatusCode code);
+	static const *GetStatusCodeName(StatusCode code);
 	static PICC_Type PICC_GetType(uint8_t sak);
 	// old function used too much memory, now name moved to flash; if you need char, copy from flash to memory
 	//const char *PICC_GetTypeName(uint8_t type);
-	static const __FlashStringHelper *PICC_GetTypeName(PICC_Type type);
+	static const *PICC_GetTypeName(PICC_Type type);
 	
 	// Support functions for debuging
 	void PCD_DumpVersionToSerial();
@@ -1694,19 +1694,19 @@ MFRC522::StatusCode MFRC522::PCD_MIFARE_Transceive(	uint8_t *sendData,		///< Poi
  * 
  * @return const __FlashStringHelper *
  */
-const __FlashStringHelper *MFRC522::GetStatusCodeName(MFRC522::StatusCode code	///< One of the StatusCode enums.
+const *MFRC522::GetStatusCodeName(MFRC522::StatusCode code	///< One of the StatusCode enums.
 										) {
 	switch (code) {
-		case STATUS_OK:				return F("Success.");
-		case STATUS_ERROR:			return F("Error in communication.");
-		case STATUS_COLLISION:		return F("Collision detected.");
-		case STATUS_TIMEOUT:		return F("Timeout in communication.");
-		case STATUS_NO_ROOM:		return F("A buffer is not big enough.");
-		case STATUS_INTERNAL_ERROR:	return F("Internal error in the code. Should not happen.");
-		case STATUS_INVALID:		return F("Invalid argument.");
-		case STATUS_CRC_WRONG:		return F("The CRC_A does not match.");
-		case STATUS_MIFARE_NACK:	return F("A MIFARE PICC responded with NAK.");
-		default:					return F("Unknown error");
+		case STATUS_OK:				return ("Success.");
+		case STATUS_ERROR:			return ("Error in communication.");
+		case STATUS_COLLISION:		return ("Collision detected.");
+		case STATUS_TIMEOUT:		return ("Timeout in communication.");
+		case STATUS_NO_ROOM:		return ("A buffer is not big enough.");
+		case STATUS_INTERNAL_ERROR:	return ("Internal error in the code. Should not happen.");
+		case STATUS_INVALID:		return ("Invalid argument.");
+		case STATUS_CRC_WRONG:		return ("The CRC_A does not match.");
+		case STATUS_MIFARE_NACK:	return ("A MIFARE PICC responded with NAK.");
+		default:					return ("Unknown error");
 	}
 } // End GetStatusCodeName()
 
@@ -1742,21 +1742,21 @@ MFRC522::PICC_Type MFRC522::PICC_GetType(uint8_t sak		///< The SAK uint8_t retur
  * 
  * @return const __FlashStringHelper *
  */
-const __FlashStringHelper *MFRC522::PICC_GetTypeName(PICC_Type piccType	///< One of the PICC_Type enums.
+const *MFRC522::PICC_GetTypeName(PICC_Type piccType	///< One of the PICC_Type enums.
 													) {
 	switch (piccType) {
-		case PICC_TYPE_ISO_14443_4:		return F("PICC compliant with ISO/IEC 14443-4");
-		case PICC_TYPE_ISO_18092:		return F("PICC compliant with ISO/IEC 18092 (NFC)");
-		case PICC_TYPE_MIFARE_MINI:		return F("MIFARE Mini, 320 uint8_ts");
-		case PICC_TYPE_MIFARE_1K:		return F("MIFARE 1KB");
-		case PICC_TYPE_MIFARE_4K:		return F("MIFARE 4KB");
-		case PICC_TYPE_MIFARE_UL:		return F("MIFARE Ultralight or Ultralight C");
-		case PICC_TYPE_MIFARE_PLUS:		return F("MIFARE Plus");
-		case PICC_TYPE_MIFARE_DESFIRE:	return F("MIFARE DESFire");
-		case PICC_TYPE_TNP3XXX:			return F("MIFARE TNP3XXX");
-		case PICC_TYPE_NOT_COMPLETE:	return F("SAK indicates UID is not complete.");
+		case PICC_TYPE_ISO_14443_4:		return ("PICC compliant with ISO/IEC 14443-4");
+		case PICC_TYPE_ISO_18092:		return ("PICC compliant with ISO/IEC 18092 (NFC)");
+		case PICC_TYPE_MIFARE_MINI:		return ("MIFARE Mini, 320 uint8_ts");
+		case PICC_TYPE_MIFARE_1K:		return ("MIFARE 1KB");
+		case PICC_TYPE_MIFARE_4K:		return ("MIFARE 4KB");
+		case PICC_TYPE_MIFARE_UL:		return ("MIFARE Ultralight or Ultralight C");
+		case PICC_TYPE_MIFARE_PLUS:		return ("MIFARE Plus");
+		case PICC_TYPE_MIFARE_DESFIRE:	return ("MIFARE DESFire");
+		case PICC_TYPE_TNP3XXX:			return ("MIFARE TNP3XXX");
+		case PICC_TYPE_NOT_COMPLETE:	return ("SAK indicates UID is not complete.");
 		case PICC_TYPE_UNKNOWN:
-		default:						return F("Unknown type");
+		default:						return ("Unknown type");
 	}
 } // End PICC_GetTypeName()
 
