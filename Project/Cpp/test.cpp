@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <wiringPi.h>
-#include <wiringSPI.h>
+#include <wiringPiSPI.h>
 
 using namespace std;
 
