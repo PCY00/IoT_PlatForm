@@ -24,9 +24,9 @@ TRYAGAIN:
     do{delayMicroseconds(1);}while(digitalRead(DHT_GPIO) == LOW);
     do{delayMicroseconds(1);}while(digitalRead(DHT_GPIO) == HIGH);
 
-    for(int d=0, d < 5; d++){
+    for(int d=0; d < 5; d++){
         for(int i=0; i < 8; i++){
-            do{delayMicroseconds(1);}
+            do{delayMicroseconds(1);} while(digialRead(DHT_GPIO)==LOW);
             int width = 0;
             do{
                 width++;
@@ -46,7 +46,7 @@ TRYAGAIN:
     }
 
     unsigned char chk = 0;
-    for(int i=0; i < 4; i++) {chk += data[i]};
+    for(int i=0; i < 4; i++) {chk += data[i];}
     if(chk == data[4]){
         cout << "The checksum is good" << endl;
         cout << "The temperature is " << (float)temp/10 << "C" << endl;
