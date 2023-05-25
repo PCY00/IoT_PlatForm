@@ -18,19 +18,19 @@ int main(int argc, char *argv[]){
         digitalWrite(PIN_TRIG, HIGH);
         delayMicroseconds(20);
         digitalWrite(PIN_TRIG, LOW);
+
+        while(digitalRead(PIN_ECHO) == LOW);
+
+        unsigned int startTime = micros();
+        while(digitalRead(PIN_ECHO) == HIGH);
+        T = micros() - startTime;
+        L = T / 58.2;
+
+        if(L <= RANGE_MIN || L >= RANGE_MAX){
+            cout << "-1" << endl;
+        }else{
+            cout << "Distance is " << L << "cm" << endl;
+        }
+        delay(100);
     }
-
-    while(digitalRead(PIN_ECHO) == LOW);
-
-    unsigned int startTime = micros();
-    while(digitalRead(PIN_ECHO) == HIGH);
-    T = micros() - startTime;
-    L = T / 58.2;
-
-    if(L <= RANGE_MIN || L >= RANGE_MAX){
-        cout << "-1" << endl;
-    }else{
-        cout << "Distance is " << L << "cm" << endl;
-    }
-    delay(100);
 }
