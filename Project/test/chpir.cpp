@@ -35,16 +35,17 @@ int main(int argc, char *argv[]){
 
     while(1){
         unsigned int L = getDistance();
-
+	cout << L << "cm\n";
         if((L >= RANGE_MIN && L <= RANGE_MAX) && count == 1){
             count = 0;
             performPOSTRequest(url_post, post_data);
             cout << "post 1(someone coming)" << '\n';
 
             while(1){
-                
+                cout << "roop" << '\n';
                 if(performGETRequest(url_get) == "00"){
-                    break;
+                   	cout << "break" << '\n';
+			break;
                 }
             }
         }
