@@ -23,8 +23,8 @@ unsigned int getDistance();
 
 int main(int argc, char *argv[]){
     wiringPiSetupGpio();
-    string url_get = "http://203.253.128.177:7579/Mobius/20191546/data/la";
-    string url_post = "http://203.253.128.177:7579/Mobius/20191546/data";
+    string url_get = "http://203.253.128.177:7579/Mobius/20191546/personcheck/la";
+    string url_post = "http://203.253.128.177:7579/Mobius/20191546/personcheck";
     string post_data = "{\"m2m:cin\": {\"con\": \"1\"}}";
 
     pinMode(PIN_PIR, INPUT);
