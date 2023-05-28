@@ -69,14 +69,18 @@ int main(int argc, char *argv[]){
 
     while(1){
         //Create two threads and run parallel
-        #pragma omp parallel num_threads(2){
-            #pragma omp sections{
+        #pragma omp parallel num_threads(2)
+	{
+            #pragma omp sections
+	    {
                 //dht sensor task
-                #pragma omp section{
+                #pragma omp section
+		{
                     T_Task();
                 }
                 //person notice task
-                #pragma omp section{
+                #pragma omp section
+		{
                     PNH_Task();
                 }
             }
