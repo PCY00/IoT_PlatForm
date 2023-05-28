@@ -15,7 +15,6 @@
 #include <iomanip>
 #include <string>
 #include <wiringPi.h>
-#include <omp.h>
 using namespace std;
 
 //pir
@@ -32,29 +31,28 @@ using namespace std;
 #define LH_THRESHOLD 26 //low=~14, high=~38 - pick avg.
 
 
-//PIR state
-int count = 0;
+//global variable
+int count = 0;                                                                  //PIR state
+string url_get = "http://203.253.128.177:7579/Mobius/20191546/data/la";         //Get url
+string url_post = "http://203.253.128.177:7579/Mobius/20191546/personcheck";    //Post url
+string post_data = "{\"m2m:cin\": {\"con\": \"1\"}}";                           //Post data
 
 //function
-void sensePIR();                                                            //PIR callback
-size_t write_callback(char *ptr, size_t size, size_t nmemb, string *data);  //Get callback
-string performGETRequest(const string& url);                                //HTTP Get
-void performPOSTRequest(const string& url, const string& post_data);        //HTTP Post
-unsigned int getDistance();                                                 //Distance measurement
-bool runEvery(unsigned long interval);                                      //Delay milliseconds
-void measureTemperatureAndHumidity(int& temp, int& humid);                  //Temperature and humidity measurement
-void controlRelayAndFan(int temp);                                          //Relay and fan control
-void T_Task();                                                              //Temperature and humidity task
-void PNH_Task();                                                            //person Notice HTTP task
-
+void sensePIR();                                                                //PIR callback
+size_t write_callback(char *ptr, size_t size, size_t nmemb, string *data);      //Get callback
+string performGETRequest(const string& url);                                    //HTTP Get
+void performPOSTRequest(const string& url, const string& post_data);            //HTTP Post
+unsigned int getDistance();                                                     //Distance measurement
+bool runEvery(unsigned long interval);                                          //Delay milliseconds
+void measureTemperatureAndHumidity(int& temp, int& humid);                      //Temperature and humidity measurement
+void controlRelayAndFan(int temp);                                              //Relay and fan control
+void T_Task();                                                                  //Temperature and humidity task
+void PNH_Task();                                                                //person Notice HTTP task
 
 int main(int argc, char *argv[]){
     wiringPiSetupGpio();
     //Priority setting
     piHiPri(99);
-    string url_get = "http://203.253.128.177:7579/Mobius/20191546/data/la";
-    string url_post = "http://203.253.128.177:7579/Mobius/20191546/personcheck";
-    string post_data = "{\"m2m:cin\": {\"con\": \"1\"}}";
     //PIR
     pinMode(PIN_PIR, INPUT);
     //ch
@@ -69,18 +67,17 @@ int main(int argc, char *argv[]){
 
     while(1){
         //Create two threads and run parallel
-        #pragma omp parallel num_threads(2)
-	{
+        #pragma omp parallel num_threads(2){
             #pragma omp sections
-	    {
+            {
                 //dht sensor task
                 #pragma omp section
-		{
+                {
                     T_Task();
                 }
                 //person notice task
                 #pragma omp section
-		{
+                {
                     PNH_Task();
                 }
             }
