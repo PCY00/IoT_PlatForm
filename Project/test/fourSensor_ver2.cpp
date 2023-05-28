@@ -34,7 +34,7 @@ using namespace std;
 
 //global variable
 int count = 0;                                                                  //PIR state
-string url_get = "http://203.253.128.177:7579/Mobius/20191546/data/la";         //Get url
+string url_get = "http://203.253.128.177:7579/Mobius/20191546/personcheck/la";         //Get url
 string url_post = "http://203.253.128.177:7579/Mobius/20191546/personcheck";    //Post url
 string post_data = "{\"m2m:cin\": {\"con\": \"1\"}}";                           //Post data
 int temp = 0, humid = 0;                                                        //Temperature and humidity
