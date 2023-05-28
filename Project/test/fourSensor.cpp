@@ -6,6 +6,8 @@
 결제하고 나면 다시 초음파센서로 거리를 측정하여 다음 사람이 다가오면 다시 결제할 수 있도록 한다.
 딜레이사용 없이 5초마다 온습도를 측정하고 25도 이상이면 릴레이를 켜고 릴레이를 키면 선풍기가 돌아간다.
 선풍기가 돌아가면 5초마다 온습도를 측정하고 25도 이하면 릴레이를 끄고 선풍기를 끈다.
+
+-fopenmp -lcurl -lwiringPi
 */
 #include <iostream>
 #include <curl/curl.h>
@@ -13,6 +15,7 @@
 #include <iomanip>
 #include <string>
 #include <wiringPi.h>
+#include <omp.h>
 using namespace std;
 
 //pir
