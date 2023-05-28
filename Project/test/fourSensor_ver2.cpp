@@ -210,6 +210,7 @@ bool runEvery(unsigned long interval){
 
 void measureTemperatureAndHumidity() {
     bool result = false;
+
     while(!result){
         unsigned char data[5] = {0, 0, 0, 0, 0};
         pinMode(DHT_GPIO, OUTPUT);
@@ -269,8 +270,8 @@ void controlRelayAndFan() {
 void T_Task(){
     while(1){
         if(runEvery(5000)){
-            measureTemperatureAndHumidity(temp, humid);
-            controlRelayAndFan(temp);
+            measureTemperatureAndHumidity();
+            controlRelayAndFan();
         }
     }
 }
