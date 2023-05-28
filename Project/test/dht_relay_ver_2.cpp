@@ -13,6 +13,8 @@ using namespace std;
 #define RELAY_GPIO 17
 #define LH_THRESHOLD 26 //low=~14, high=~38 - pick avg.
 
+int temp = 0, humid = 0;
+
 bool runEvery(unsigned long interval);
 void measureTemperatureAndHumidity(int& temp, int& humid);
 void controlRelayAndFan(int temp);
@@ -27,7 +29,6 @@ int main() {
 
     while (1) {
         if (runEvery(5000)) {
-            int temp, humid;
             measureTemperatureAndHumidity(temp, humid);
             controlRelayAndFan(temp);
         }
