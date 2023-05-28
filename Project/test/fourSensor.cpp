@@ -15,6 +15,7 @@
 #include <iomanip>
 #include <string>
 #include <wiringPi.h>
+#include <omp.h>
 using namespace std;
 
 //pir
