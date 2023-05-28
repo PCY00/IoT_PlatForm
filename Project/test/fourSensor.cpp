@@ -68,7 +68,8 @@ int main(int argc, char *argv[]){
 
     while(1){
         //Create two threads and run parallel
-        #pragma omp parallel num_threads(2){
+        #pragma omp parallel num_threads(2)
+        {
             #pragma omp sections
             {
                 //dht sensor task
