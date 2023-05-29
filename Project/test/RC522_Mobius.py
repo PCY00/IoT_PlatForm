@@ -16,19 +16,22 @@ headers_gp = {
 	'Content-Type': 'application/vnd.onem2m-res+json; ty=4'
 }
 
-r_read = requests.get(url_get, headers=headers_gp)
-r_read.raise_for_status()
-data = r_read.json()
 
 reader = SimpleMFRC522()
 
 try:
+    while True:
+        r_read = requests.get(url_get, headers=headers_gp)
+        r_read.raise_for_status()
+        data = r_read.json()
+
         id, text = reader.read()
         findcnt = search + "/" + str(id)
         
         if findcnt in data['m2m:uril']:
             requests.post(url_post, headers = headers_gp, json = data_post)
-                
+        else:
+            print("Invalid card")
 finally:
         GPIO.cleanup()
         
