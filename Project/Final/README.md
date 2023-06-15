@@ -1,3 +1,3 @@
 team project
 
-![screenshot](.//screenshot.png)
+![screenshot](./modeling/SmartAir.png)
