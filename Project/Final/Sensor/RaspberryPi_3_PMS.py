@@ -19,9 +19,13 @@ import struct
 import time
 import requests
 
-url_get_airkorea = "mykey"
+#에어코리아 송악면 미세먼지 데이터 값
+url_get_airkorea = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?serviceKey=sST0RoKdAkCFzjsMZaNfTkKMas7MzniM%2FD3gNOGMh1isU9YsKjWxDg0YorxWFVre7c214QdK58gRvBYsKr1Ujg%3D%3D&returnType=json&numOfRows=1&pageNo=1&stationName=송악면&dataTerm=DAILY&ver=1.3"
+#PMS에 문을 열지 말지를 올리는 값
 url_post = "http://203.253.128.177:7579/Mobius/20191546/PMS"
+#미세먼지가 밖이 더 나쁘면
 data_post_good = {"m2m:cin": {"con": "0"}}
+#미세먼지가 밖이 더 좋으면
 data_post_bad = {"m2m:cin": {"con": "Open The Window"}}
 
 headers_post = {
@@ -31,6 +35,7 @@ headers_post = {
 	'Content-Type': 'application/vnd.onem2m-res+json; ty=4'
 }
 
+#pms 클래스
 class PMS7003(object):
 
     # PMS7003 protocol data (HEADER 2byte + 30byte)
@@ -134,7 +139,7 @@ class PMS7003(object):
 
         return data
 
-
+		#미세먼지 데이터 출력 (2.5값만)
     def Get_PM2_5(self, buffer):
         
         chksum = self.chksum_cal(buffer)
@@ -170,24 +175,33 @@ if __name__=='__main__':
         
         ser.flushInput()
         buffer = ser.read(1024)
-
+				
+				#오류가 없을경우
         if(dust.protocol_chk(buffer)):
+
+						#에어코리아에서 값을 가져옴
             r_read = requests.get(url_get_airkorea)
             r_read.raise_for_status()
             airkorea_data = r_read.json()
+						#가져온 값에서 필요한 pm25값만 분리
             PM25_get = airkorea_data["response"]["body"]["items"][0]["pm25Value"]
         
             print("DATA read success")
-        
+		        #센서에서 측정된 pm25값을 data에 저장
             PM25_data = dust.Get_PM2_5(buffer)
             print(PM25_get + '\n')
             
+						#만약 센서에서 가져온 값이 에어코리아에서 가져온 값보다 클 경우
             if(int(PM25_data) > int(PM25_get)):
+								#그리고 중복확인이 아닌 한번만 확인하기 위해 check가 1일경우 (한번도 체크 안한경우)
                 if(check == 1):
+										#안이 더 미세먼지 농도가 높으니 문을 열으라고 서버에 post
                     requests.post(url_post, headers = headers_post, json = data_post_bad)
                     check = 0
                     #print(PM25_get)
                     print(" Bad air!! open the door\n")
+								#만약 check가 0이면 안이 미세먼지가 높지만 이미 post로 알려준 상태임
+								#따라서 아무것도 하지 않음
             else:
                 if(check == 0):
                     requests.post(url_post, headers = headers_post, json = data_post_good)
